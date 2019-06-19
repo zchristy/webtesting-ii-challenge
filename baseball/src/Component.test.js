@@ -37,4 +37,17 @@ describe('<Dashboard />', () => {
     })
   })
 
+  describe('Foul button', () => {
+    it('changes the ball value by 1', () => {
+      const { getByTestId } = render(<Dashboard count={{ strike: 0, foul: 0 }}/>)
+
+      const button = getByTestId('foulBtn')
+
+      fireEvent.click(button)
+
+      expect(parseInt(getByTestId('foulCount').textContent, 10)).toBe(1)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(1)
+    })
+  })
+
 })
