@@ -62,4 +62,40 @@ describe('<Dashboard />', () => {
     })
   })
 
+  describe('Error button', () => {
+    it('changes the inning errors value by 1', () => {
+      const { getByTestId } = render(<Dashboard inning={{ errors: 0 }}/>)
+
+      const button = getByTestId('errorBtn')
+
+      fireEvent.click(button)
+
+      expect(parseInt(getByTestId('errorsCount').textContent, 10)).toBe(1)
+    })
+
+    it('changes the game errors total value by 1', () => {
+      const { getByTestId } = render(<Dashboard game={{ errosTotal: 0 }}/>)
+
+      const button = getByTestId('errorBtn')
+
+      fireEvent.click(button)
+
+      expect(parseInt(getByTestId('errorTotal').textContent, 10)).toBe(1)
+    })
+  })
+
+  describe('Reset Batter Count button', () => {
+    it('Sets the strikes, balls, and fouls to 0', () => {
+      const { getByTestId } = render(<Dashboard count={{ strike: 2, ball: 2, foul: 2 }}/>)
+
+      const button = getByTestId('resetBtn')
+
+      fireEvent.click(button)
+
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(0)
+      expect(parseInt(getByTestId('ballCount').textContent, 10)).toBe(0)
+      expect(parseInt(getByTestId('foulCount').textContent, 10)).toBe(0)
+    })
+  })
+
 })
