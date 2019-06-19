@@ -4,10 +4,10 @@ class Display extends Component {
   render() {
     return (
       <div>
-        <div>{this.props.count.strike}</div>
-        <div>{this.props.count.ball}</div>
-        <div>{this.props.count.foul}</div>
-        <div>{this.props.count.hit}</div>
+        <div>Strikes<div data-testid='strikeCount' >{this.props.count.strike}</div></div>
+        <div>Balls<div data-testid='ballCount' >{this.props.count.ball}</div></div>
+        <div>Fouls<div data-testid='foulCount' >{this.props.count.foul}</div></div>
+        <div>Hits<div data-testid='hitCount' >{this.props.count.hit}</div></div>
       </div>
     );
   }
