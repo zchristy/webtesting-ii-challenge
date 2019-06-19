@@ -23,6 +23,65 @@ describe('<Dashboard />', () => {
 
       expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(1)
     })
+
+    it('shows after 3 strikes the value of outs is incremented by 1', () => {
+      const { getByTestId } = render(<Dashboard count={{ strike: 0 }} inning={{ outs: 0}}/>)
+
+      const button = getByTestId('strikeBtn')
+
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(1)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(0)
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(2)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(0)
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(1)
+    })
+
+    it('shows after (3 strike outs) 3 outs the value of innings number is incremented by 1', () => {
+      const { getByTestId } = render(<Dashboard
+        count={{ strike: 0, ball: 1, foul: 1 }}
+        inning={{ outs: 0, number: 1, hit: 1}}
+        />)
+
+      const button = getByTestId('strikeBtn')
+
+      // First out
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(1)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(0)
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(2)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(0)
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(1)
+
+      // Second out
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(1)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(1)
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(2)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(1)
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(2)
+
+      // third out - inning increments - outs, inning hits, and count reset
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(1)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(2)
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(2)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(2)
+      fireEvent.click(button)
+      expect(parseInt(getByTestId('ballCount').textContent, 10)).toBe(0)
+      expect(parseInt(getByTestId('foulCount').textContent, 10)).toBe(0)
+      expect(parseInt(getByTestId('hitCount').textContent, 10)).toBe(0)
+      expect(parseInt(getByTestId('strikeCount').textContent, 10)).toBe(0)
+      expect(parseInt(getByTestId('outCount').textContent, 10)).toBe(0)
+      expect(parseInt(getByTestId('inningCount').textContent, 10)).toBe(2)
+    })
   })
 
   describe('Ball button', () => {
