@@ -16,7 +16,6 @@ class Display extends Component {
   componentDidUpdate(prevProps) {
     if(this.props.inning.runs !== prevProps.inning.runs || this.props.inning.number !== prevProps.inning.number) {
         const { runs, number } = this.props.inning
-          console.log(number, 'runs', runs)
         if(number === 1) {
           this.setState({
             ...this.state,
@@ -91,7 +90,7 @@ class Display extends Component {
               <th>9</th>
                 <td data-testid='inning9' >{this.state.inning9Runs}</td>
               <th>Runs</th>
-                <td data-testid='runTotal' >{runsTotal}</td>
+                <td data-testid='runsTotal' >{runsTotal}</td>
               <th>Errors</th>
                 <td data-testid='errorTotal' >{errorsTotal}</td>
               <th>Hits</th>

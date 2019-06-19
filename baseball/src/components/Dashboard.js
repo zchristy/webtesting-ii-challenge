@@ -178,7 +178,41 @@ class Dashboard extends Component {
             }
           })
 
-      }
+      } else if(e.target.name === 'out') {
+          if(outs < 2) {
+              this.setState({
+                ...this.state,
+                count: {
+                  ...this.state.count,
+                  strike: 0,
+                  ball: 0,
+                  foul: 0
+                },
+                inning: {
+                  ...this.state.inning,
+                  outs: outs + 1
+                }
+              })
+          } else {
+              this.setState({
+                ...this.state,
+                count: {
+                  ...this.state.count,
+                  strike: 0,
+                  ball: 0,
+                  foul: 0
+                },
+                inning: {
+                  ...this.state.inning,
+                  outs: 0,
+                  hit: 0,
+                  runs: 0,
+                  errors: 0,
+                  number: number + 1
+                }
+              })
+            }
+        }
   }
 
   resetCount = e => {
@@ -210,6 +244,7 @@ class Dashboard extends Component {
         <button data-testid='ballBtn' name= 'ball' onClick={this.countHandler} >Ball</button>
         <button data-testid='foulBtn' name= 'foul' onClick={this.countHandler} >Foul</button>
         <button data-testid='hitBtn' name= 'hit' onClick={this.countHandler} >At bat Hit</button>
+        <button data-testid='outBtn' name= 'out' onClick={this.countHandler} >Record an Out</button>
         <button data-testid='errorBtn' name= 'error' onClick={this.countHandler} >Error</button>
         <button data-testid='resetBtn' onClick={this.resetCount} >Reset Batter Count</button>
       </div>
